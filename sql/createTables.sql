@@ -1,8 +1,7 @@
-DROP TABLE IF EXISTS food;
+DROP TABLE IF EXISTS pastes;
 
-CREATE TABLE  food (
+CREATE TABLE  pastes (
     id          serial PRIMARY KEY,
-    title       varchar(40) NOT NULL
+    title       text,
+    body text NOT NULL
 );
-
-INSERT INTO food (title) VALUES ('sourdough'), ('olive oil'), ('pizza'), ('picanha'), ('gorgonzola'), ('basil');
