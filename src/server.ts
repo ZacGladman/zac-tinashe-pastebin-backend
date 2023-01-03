@@ -31,15 +31,25 @@ app.get("/pastes", async (req, res) => {
   }
 });
 
-app.get("/health-check", async (req, res) => {
+app.post("/pastes", async (req, res) => {
   try {
-    //For this to be successful, must connect to db
-    await client.query("select now()");
-    res.status(200).send("system ok");
+    const body = req.body;
+    const query = "INSERT INTO pastes (title, body) VALUES ($1,$2) RETURNING *";
+    await client.query(query, [body.title, body.body]);
+    res.status(200).send("Item added");
   } catch (error) {
-    //Recover from error rather than letting system halt
     console.error(error);
-    res.status(500).send("An error occurred. Check server logs.");
+  }
+});
+
+app.delete("/pastes/:id", async (req, res) => {
+  try {
+    const query = "DELETE FROM pastes WHERE id=$1";
+    const id = req.params.id;
+    await client.query(query, [id]);
+    res.status(200).send("Item deleted");
+  } catch (error) {
+    console.error(error);
   }
 });
 
