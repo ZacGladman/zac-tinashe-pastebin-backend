@@ -22,13 +22,12 @@ app.get("/", async (req, res) => {
 
 app.get("/pastes", async (req, res) => {
   try {
-    const query = 'SELECT * FROM pastes';
+    const query = "SELECT * FROM pastes";
     const response = await client.query(query);
-    const rows = response.rows
-    res.send(rows)
-    
+    const rows = response.rows;
+    res.send(rows);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 });
 
