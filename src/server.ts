@@ -22,7 +22,7 @@ app.get("/", async (req, res) => {
 
 app.get("/pastes", async (req, res) => {
   try {
-    const query = "SELECT * FROM pastes";
+    const query = "SELECT * FROM pastes ORDER by id DESC";
     const response = await client.query(query);
     const rows = response.rows;
     res.send(rows);
@@ -38,6 +38,7 @@ app.post("/pastes", async (req, res) => {
     await client.query(query, [body.title, body.body]);
     res.status(200).send("Item added");
   } catch (error) {
+    res.send(error);
     console.error(error);
   }
 });
@@ -49,6 +50,7 @@ app.delete("/pastes/:id", async (req, res) => {
     await client.query(query, [id]);
     res.status(200).send("Item deleted");
   } catch (error) {
+    res.send(error);
     console.error(error);
   }
 });
