@@ -22,7 +22,7 @@ app.get("/", async (req, res) => {
 
 app.get("/pastes", async (req, res) => {
   try {
-    const query = "SELECT * FROM pastes ORDER by id DESC";
+    const query = "SELECT * FROM pastes ORDER by id DESC LIMIT 10";
     const response = await client.query(query);
     const rows = response.rows;
     res.send(rows);
